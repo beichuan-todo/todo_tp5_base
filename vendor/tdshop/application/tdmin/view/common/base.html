@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>{block name="title"}投道商城后台{/block}</title>
+  <link rel="stylesheet" href="/static/layui/src/css/layui.css">
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+  <div class="layui-header">
+    <div class="layui-logo">{block name="logo"}投道商城后台{/block}</div>
+    <!-- 头部区域（可配合layui已有的水平导航） -->
+    {include file="common/top_bar"}
+  </div>
+  
+  <div class="layui-side layui-bg-black">
+    <div class="layui-side-scroll">
+      <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+      {include file="common/side_bar"}
+    </div>
+  </div>
+  
+  <div class="layui-body">
+    <!-- 内容主体区域 -->
+    <div style="padding: 15px;">
+    	{block name="content"}{/block}
+    </div>
+  </div>
+  
+  <div class="layui-footer">
+    <!-- 底部固定区域 -->
+    © todo - 投道科技
+  </div>
+</div>
+<script src="/static/layui/src/layui.js"></script>
+{block name="js"}
+<script>
+//JavaScript代码区域
+layui.use('element', function(){
+  var element = layui.element;
+  
+});
+</script>
+{/block}
+</body>
+</html>

@@ -1,0 +1,45 @@
+{extend name="common/base" /}
+{block name="content"}
+<blockquote class="layui-elem-quote fhui-admin-main_hd">
+    <h2>我的资料</h2>
+</blockquote>
+<form  class="layui-form layui-form-pane" id="formrec" method="post" role="form">
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">账号</label>
+        <div class="layui-input-block">
+            <input autocomplete="off" value="{$data['username']}" placeholder="账号" class="layui-input" type="text" readonly="readonly" lay-verify="username">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">用户组</label>
+        <div class="layui-input-block">
+            <input autocomplete="off" value="{$data['group_name']}" placeholder="账号" class="layui-input" type="text" readonly="readonly" lay-verify="group_name">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">姓名</label>
+        <div class="layui-input-block">
+            <input name="real_name" autocomplete="off" value="{$data['real_name']}" placeholder="姓名" class="layui-input" type="text" required>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">电话号码</label>
+        <div class="layui-input-block">
+            <input name="telephone" autocomplete="off" value="{$data['telephone']}" placeholder="电话号码" class="layui-input" type="text">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <a class="layui-btn layui-btn-primary do-action" onclick="goback(-1)">返回</a>
+        <button class="layui-btn" lay-submit="" lay-filter="add-role" data-href={:url('myProfile')}>提交</button>
+    </div>
+
+</form>
+{/block}
+{block name="js"}
+<script type="text/javascript">
+    layui.use(['form'], function() {
+        var form = layui.form;
+    })
+</script>
+{/block}

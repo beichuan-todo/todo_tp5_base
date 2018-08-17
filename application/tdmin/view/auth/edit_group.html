@@ -1,0 +1,34 @@
+{extend name="common/base" /}
+{block name="content"}
+<blockquote class="layui-elem-quote fhui-admin-main_hd">
+    <h2>修改角色</h2>
+</blockquote>
+<form  class="layui-form layui-form-pane" id="formrec" method="post" role="form">
+    <input type="hidden" name="id" value="{$data['id']}">
+    
+    <div class="layui-form-item">
+        <label class="layui-form-label">角色名称</label>
+        <div class="layui-input-block">
+            <input name="title" autocomplete="off" value="{$data['title']}" placeholder="角色名称" class="layui-input" type="text" required  lay-verify="title">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">是否启用</label>
+        <div class="layui-input-block">
+            <input {eq name="$data['status']" value="1"}checked="checked"{/eq} name="status" lay-skin="switch" lay-filter="switchTest" title="是" type="checkbox">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <a class="layui-btn layui-btn-primary do-action" onclick="goback(-1)">返回</a>
+        <button class="layui-btn" lay-submit="" lay-filter="add-role" data-href={:url('editRule')}>提交</button>
+    </div>
+
+</form>
+{/block}
+{block name="js"}
+<script type="text/javascript">
+    layui.use(['form'], function() {
+        var form = layui.form;
+    })
+</script>
+{/block}

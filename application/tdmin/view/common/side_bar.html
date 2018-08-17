@@ -1,0 +1,19 @@
+<ul class="layui-nav layui-nav-tree">
+  {volist name="menu" id="o"}
+  {eq name="$o['name']" value="#"}
+  <li class="layui-nav-item {eq name='$o.spread' value='true'}layui-nav-itemed{/eq}">
+    <a class="" href="javascript:;">
+      <i class="icon {$o['css']}"></i>
+      {$o['title']}
+    </a>
+    <dl class="layui-nav-child">
+      {volist name="$o['child']" id="p"}
+      <dd {eq name="$p.selected" value="true"}class="layui-this"{/eq}><a href="{:url($p['name'])}" target="displayarea">{$p['title']}</a></dd>
+      {/volist}
+      </dl>
+  </li>
+  {else/}
+  <li class="layui-nav-item"><a href="">{$o['title']}</a></li>
+  {/eq}
+  {/volist}
+</ul>

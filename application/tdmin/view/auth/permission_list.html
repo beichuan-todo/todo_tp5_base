@@ -1,0 +1,77 @@
+{extend name="common/base" /}
+{block name="content"}
+<blockquote class="layui-elem-quote fhui-admin-main_hd">
+    <h2>分配权限 【角色：{$data.title}】</h2>
+</blockquote>
+<input type="hidden" id="group_id" name="group_id" value="{$data.id}">
+<form class="layui-form">
+<table class="layui-table">
+    <colgroup>
+        <col width="5%">
+        <col width="50%">
+    </colgroup>
+
+    <thead>
+        <tr><th><input type="checkbox" lay-skin="primary" lay-filter="checkall"></th><th>权限名称</th></tr>
+    </thead>
+    <tbody>
+        {volist name="list" id="o"}
+        <tr>
+            <td>
+                <div class="layui-form">
+                    <input {eq name="$o.checked" value="1"}checked="checked"{/eq} class="rule" value="{$o.id}" lay-skin="primary" lay-filter="rule" title="" type="checkbox" data-pid="{$o.pid}">
+                </div>
+            </td>
+            <td>{if $o.pid eq 0}{else}{if $o.lvl eq 2}　├{else}　　├{/if}{/if}{$o['name']}</td>
+        </tr>
+        {/volist}
+    </tbody>
+</table>
+</form>
+<button class="layui-btn" id="save_btn">保存</button>
+{/block}
+{block name="js"}
+<script type="text/javascript">
+    layui.use(['form','jquery'], function() {
+        var form = layui.form;
+        var $ = layui.$;
+
+        form.on('checkbox(rule)',function(data){
+            var pid = $(data.elem).attr('data-pid');
+            if(pid > 0){
+                $('.rule').each(function(){
+                    if($(this).val() == pid) {
+                    // console.log($(this).attr('checked'));
+                        $(this).prop('checked',true);
+                        form.render('checkbox');
+                    }
+                })
+            }
+        });
+        form.on('checkbox(checkall)', function(data) {
+            $('.rule').each(function(){
+                $(this).prop('checked', $(data.elem).prop('checked'));
+                form.render('checkbox');
+            })
+        });
+        $('#save_btn').click(function() {
+            var group_id = $('#group_id').val();
+            var rule_arr = new Array();
+            $('.rule:checked').each(function(){
+                rule_arr.push($(this).val());
+            });
+            var rule_str = rule_arr.join(',');
+
+            $.post("{:url('changeGroupRule')}",{'rule_str':rule_str,'group_id':group_id},function(data){
+                if(data.code==1){
+                    layer.msg(data.msg,{icon:1,time:layer_time,shade: 0.1,},function(){
+                        goback();
+                    });
+                } else {
+                    layer.msg(data.msg,{icon:2,time:layer_time,shade: 0.1,});
+                }
+            },'JSON');
+        })
+    })
+</script>
+{/block}
